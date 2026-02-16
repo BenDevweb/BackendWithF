@@ -10,7 +10,7 @@ router.get('/apprenants/:id', [ApprenantsController, 'getApprenantById']).as('ap
 router.post('/apprenants', [ApprenantsController, 'stockerApprenant']).as('apprennants.stockerApprenant')
 router.get('/apprenants/:id/modifier', [ApprenantsController, 'modifierForm']).as('apprenants.modifierForm')
 router.post('/apprenants/:id/supprimer', [ApprenantsController, 'supprimerApprenant']).as('apprenants.supprimerApprenant')
-router.get('/apprenants/ajouter', [ApprenantsController, 'ajouterApprenant']).as('apprenants.ajouter')
+router.get('/apprenants/ajouter', [ApprenantsController, 'ajouterApprenant']).as('apprenants.ajouterApprenant')
 
 
 router.get('/modules', [ModulesController, 'index']).as('modules.index')
