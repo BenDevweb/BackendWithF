@@ -1,21 +1,51 @@
-<h1 style="text-align: center; text-decoration: underline; color: black">Liste des apprenants</h1>
+<h1 style="text-align: center; text-decoration: underline; color: white">
+  Liste des apprenants
+</h1>
+<a href="{{ route ('/') }}" style="text-decoration: none; padding-left: 124px;">
+  <button
+    type="button"
+    style=" background-color: yellow; width: 120px; height: 40px; border-radius: 10px; border-color: yellow; margin-top: 15px; color: black; font-weight: bold; font-size: 1rem;cursor: pointer;"
+  >
+    Ajouter
+    </button>
+</a>
 
-<table border="1" style="width:100%; border-collapse: collapse; margin-top: 20px;">
+<table
+  border="1"
+  style="margin-right: auto; margin-left: auto; width:80%; border-collapse: collapse; margin-top: 20px; border-color: bisque;"
+>
   <thead>
     <tr style="background-color: #eee;">
-      <th>ID</th>
-      <th>Nom</th>
-      <th>Modules</th>
-      <th>Likes (Total)</th>
-      <th>Modules Aimés</th>
+      <th>
+        ID
+      </th>
+      <th>
+        Nom
+      </th>
+      <th>
+        Modules
+      </th>
+      <th>
+        Likes (Total)
+      </th>
+      <th>
+        Modules Aimés
+      </th>
+      <th>
+        Actions
+      </th>
     </tr>
   </thead>
   <tbody>
     @each(apprenant in apprenants)
       <tr>
-        <td>{{ apprenant.id }}</td>
-        <td>{{ apprenant.nom }}</td>
-        
+        <td>
+          {{ apprenant.id }}
+        </td>
+        <td>
+          {{ apprenant.nom }}
+        </td>
+
         {{-- Affichage des modules sous forme de liste à puces --}}
         <td>
           @if(apprenant.modules.length > 0)
@@ -27,14 +57,47 @@
 
         {{-- Compter le nombre de likes --}}
         <td>
-          <strong>{{ apprenant.likes.length }}</strong> likes
+          <strong>{{ apprenant.likes.length }}</strong>likes
         </td>
 
         {{-- Modules favoris --}}
         <td>
           {{ apprenant.modulesLikes.join(' | ') }}
         </td>
+
+        <td style="display:flex; gap:10px">
+
+          <!-- 🔵 MODIFIER -->
+          <form action="{{ route('apprenants.modifierApprenant', { id: apprenant.id }) }}" method="PUT">
+            {{ csrfField() }}
+      <input type="hidden" name="_method" value="PUT" />
+            <input type="hidden" name="nom" value="{{ apprenant.nom }}" />
+
+            <button style="background:#3498db;color:white;border:none;padding:6px 10px;border-radius:6px">
+              Modifier
+      </button>
+          </form>
+          <form action="{{ route('apprenants.supprimerApprenant', { id: apprenant.id }) }}" method="POST">
+            {{ csrfField() }}
+            <button
+              style="background:#e74c3c;color:white;border:none;padding:6px 10px;border-radius:6px"
+              onclick="return confirm('Voulez-vous supprimer cet(te) apprenant(e) ?')"
+            >
+              Supprimer
+        </button>
+          </form>
+        </td>
       </tr>
     @endeach
   </tbody>
 </table>
+
+<a href="{{ route ('/') }}" style="text-decoration: none; padding-left: 124px;">
+  <button
+    type="button"
+    style=" background-color: black; width: 120px; height: 40px; border-radius: 10px; margin-top: 15px; color: white; font-weight: bold; cursor: pointer;"
+  >
+    Retour
+    </button>
+</a>
+

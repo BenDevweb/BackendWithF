@@ -5,11 +5,11 @@ import ModulesController from '#controllers/modules_controller'
 router.on('/').render('home').as('home')
 
 // apprenants
-router.get('/apprenants', [ApprenantsController, 'index']).as('apprenants.index')
-router.get('/apprenants/:id', [ApprenantsController, 'show'])
-router.post('/apprenants', [ApprenantsController, 'store'])
-router.put('/apprenants/:id', [ApprenantsController, 'update'])
-router.delete('/apprenants/:id', [ApprenantsController, 'destroy'])
+router.get('/apprenants', [ApprenantsController, 'getApprenants']).as('apprenants.getApprenants')
+router.get('/apprenants/:id', [ApprenantsController, 'getApprenantById']).as('apprenants.getApprenantById')
+router.post('/apprenants', [ApprenantsController, 'stockerApprenant']).as('apprennants.stockerApprenant')
+router.put('/apprenants/:id', [ApprenantsController, 'modifierApprenant']).as('apprenants.modifierApprenant')
+router.post('/apprenants/:id/supprimer', [ApprenantsController, 'supprimerApprenant']).as('apprenants.supprimerApprenant')
 
 router.get('/modules', [ModulesController, 'index']).as('modules.index')
 router.get('/modules/:id', [ModulesController, 'show'])
