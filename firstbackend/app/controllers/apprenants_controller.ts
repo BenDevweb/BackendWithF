@@ -1,9 +1,15 @@
 import type { HttpContext } from '@adonisjs/core/http'
-import { apprenants } from 'App/Globals'
+
 export default class ApprenantsController {
+
+  private apprenants = [
+    { id: 1, nom: 'Aline', modules: [1], likes: [2], modulesLikes: [1] },
+    { id: 2, nom: 'Marc', modules: [1,2], likes: [], modulesLikes: [] }
+  ]
+
   // GET ALL
   async getApprenants({ view }: HttpContext) {
-    return view.render('etudiants', { apprenants })
+    return view.render('etudiants', { apprenants: this.apprenants })
   }
 
   // GET ONE
@@ -42,10 +48,20 @@ async ModifierApprenant({ params, request, response }: HttpContext) {
   return response.redirect().toRoute('apprenants.getApprenants')
 }
 
+public async modifierForm({ view, params }: HttpContext) {
+  const id = Number(params.id)
+
+  const apprenant = this.apprenants.find(a => a.id === id)
+
+  if (!apprenant) return 'Apprenant non trouvé'
+
+  return view.render('apprenants_modifier', { apprenant })
+}
+
   
  async supprimerApprenant({ params, response }: HttpContext) {
   const id = Number(params.id)
-  const found = this.apprenants.find(a => a.id === id)
+  const found = this.apprenants.find(apprenant => apprenant.id === id)
 
   if (!found) {
     return response.status(404).send({ message: 'Apprenant non trouvé' })

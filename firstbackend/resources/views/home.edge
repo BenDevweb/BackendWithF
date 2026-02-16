@@ -2,88 +2,110 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
+  <title>Dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Accueil - Gestion</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background-color: #f4f7f6;
-    }
-
-    .container {
-      text-align: center;
-      max-width: 600px;
-      padding: 20px;
-    }
-
-    h1 {
-      font-size: 2.5rem;
-      color: #333;
-      margin-bottom: 10px;
-    }
-
-    p {
-      color: #666;
-      font-size: 1.1rem;
-      margin-bottom: 30px;
-    }
-
-    .button-group {
-      display: flex;
-      gap: 20px;
-      justify-content: center;
-    }
-
-    .btn {
-      display: inline-block;
-      padding: 20px 40px;
-      font-size: 1.2rem;
-      font-weight: bold;
-      text-decoration: none;
-      color: white;
-      border-radius: 12px;
-      transition: transform 0.2s, background-color 0.2s;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-    }
-
-    .btn-apprenants {
-      background-color: #000000; /* Noir comme votre bouton précédent */
-    }
-
-    .btn-modules {
-      background-color: #2d3436; /* Un gris très foncé pour varier */
-    }
-
-    .btn:hover {
-      transform: translateY(-3px);
-      opacity: 0.9;
-    }
-  </style>
 </head>
-<body>
 
-  <div class="container">
-    <h1>Gestion des apprenants et des modules</h1>
-    
-    <p>Cliquez sur le bouton Apprenants ou Modules pour voir les listes.</p>
+<body class="bg-gray-100">
 
-    <div class="button-group">
-      {{-- Lien vers la liste des apprenants --}}
-      <a href="{{ route('apprenants.getApprenants') }}" class="btn btn-apprenants">
-        Apprenants
+<div class="flex min-h-screen">
+
+  <!-- SIDEBAR -->
+  <aside class="bg-black text-white w-64 hidden md:flex flex-col p-5 space-y-6">
+
+    <h2 class="text-2xl font-bold text-yellow-400">Admin</h2>
+
+    <nav class="space-y-3">
+
+      <a href="/" class="flex items-center gap-3 hover:bg-gray-800 p-2 rounded">
+        🏠 Dashboard
       </a>
 
-      {{-- Lien vers la liste des modules --}}
-      <a href="{{ route('modules.index') }}" class="btn btn-modules">
-        Modules
+      <a href="/apprenants" class="flex items-center gap-3 hover:bg-gray-800 p-2 rounded">
+        👨‍🎓 Apprenants
       </a>
-    </div>
+
+      <a href="/modules" class="flex items-center gap-3 hover:bg-gray-800 p-2 rounded">
+        📚 Modules
+      </a>
+
+      <a href="#" class="flex items-center gap-3 hover:bg-gray-800 p-2 rounded">
+        ⚙️ Paramètres
+      </a>
+
+      <a href="#" class="flex items-center gap-3 hover:bg-red-600 p-2 rounded mt-10">
+        🚪 Déconnexion
+      </a>
+
+    </nav>
+  </aside>
+
+
+  <!-- MOBILE MENU BUTTON -->
+  <div class="md:hidden fixed top-0 left-0 w-full bg-black text-white p-3 flex justify-between">
+    <span>Admin</span>
+    <button onclick="toggleMenu()">☰</button>
   </div>
+
+  <!-- MOBILE SIDEBAR -->
+  <div id="mobileMenu" class="hidden fixed top-0 left-0 h-full w-64 bg-black text-white p-5 z-50">
+    <button onclick="toggleMenu()" class="mb-5">❌</button>
+
+    <nav class="space-y-3">
+      <a href="/" class="block">Dashboard</a>
+      <a href="/apprenants" class="block">Apprenants</a>
+      <a href="/modules" class="block">Modules</a>
+      <a href="#" class="block">Paramètres</a>
+      <a href="#" class="block text-red-400">Déconnexion</a>
+    </nav>
+  </div>
+
+
+  <!-- MAIN -->
+  <main class="flex-1 p-10">
+
+    <h1 class="text-3xl font-bold mb-10 text-center">
+      Gestion des modules
+    </h1>
+
+    <div class="grid md:grid-cols-2 gap-10">
+
+      <!-- CARD APPRENANTS -->
+      <a href="/apprenants" class="bg-white shadow-lg rounded-xl p-10 text-center hover:scale-105 transition">
+        <h2 class="text-xl font-bold mb-4">Apprenants</h2>
+        <p class="text-5xl font-bold text-blue-600">
+          {{ apprenantsCount ?? 2 }}
+        </p>
+      </a>
+
+      <!-- CARD MODULES -->
+      <a href="/modules" class="bg-white shadow-lg rounded-xl p-10 text-center hover:scale-105 transition">
+        <h2 class="text-xl font-bold mb-4">Modules</h2>
+        <p class="text-5xl font-bold text-green-600">
+          {{ modulesCount ?? 2 }}
+        </p>
+      </a>
+
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="text-center mt-20 text-gray-500">
+      © 2026 - Ben Dev | Tous droits réservés
+    </footer>
+
+  </main>
+
+</div>
+
+<script>
+function toggleMenu(){
+  document.getElementById("mobileMenu").classList.toggle("hidden")
+}
+</script>
 
 </body>
 </html>
+
+
+

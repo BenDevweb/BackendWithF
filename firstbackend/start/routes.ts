@@ -8,8 +8,10 @@ router.on('/').render('home').as('home')
 router.get('/apprenants', [ApprenantsController, 'getApprenants']).as('apprenants.getApprenants')
 router.get('/apprenants/:id', [ApprenantsController, 'getApprenantById']).as('apprenants.getApprenantById')
 router.post('/apprenants', [ApprenantsController, 'stockerApprenant']).as('apprennants.stockerApprenant')
-router.put('/apprenants/:id', [ApprenantsController, 'modifierApprenant']).as('apprenants.modifierApprenant')
+router.get('/apprenants/:id/modifier', [ApprenantsController, 'modifierForm']).as('apprenants.modifierForm')
 router.post('/apprenants/:id/supprimer', [ApprenantsController, 'supprimerApprenant']).as('apprenants.supprimerApprenant')
+router.get('/apprenants/ajouter', [ApprenantsController, 'ajouterApprenant']).as('apprenants.ajouter')
+
 
 router.get('/modules', [ModulesController, 'index']).as('modules.index')
 router.get('/modules/:id', [ModulesController, 'show'])
